@@ -1,13 +1,15 @@
 package com.jpa.example.jpademo;
 
 import com.jpa.example.jpademo.entities.User;
-import com.jpa.example.jpademo.services.UserDAOService;
 import com.jpa.example.jpademo.services.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UserRepositoryCommandLineRunner implements CommandLineRunner {
@@ -22,7 +24,12 @@ public class UserRepositoryCommandLineRunner implements CommandLineRunner {
         User user = new User("Jane", "User");
 
         userRepository.save(user);
-
         log.info("New user created : " + user);
+
+        Optional<User> firstUser = userRepository.findById(1L);
+        log.info("User with id one : " + firstUser);
+
+        List<User> users = userRepository.findAll();
+        log.info("All users : " + users);
     }
 }
